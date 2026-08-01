@@ -229,6 +229,13 @@ OBSIDIAN_MQTT_TEST_VAULT=/绝对路径/vanotes-test npm run install:test-vault
 
 手动安装时，将三个文件复制到 `<Vault>/.obsidian/plugins/mqtt-sync/`，重载 Obsidian 并启用 **MQTT Sync**。不得把生产 Vault 用作自动测试目标。
 
+GitHub 正式 Release 会为三个可安装文件生成构建来源证明。下载发布附件后，可使用 GitHub CLI 验证它是否确实由本仓库工作流构建，例如：
+
+```sh
+gh attestation verify main.js -R vuecwiz/obsidian-mqtt-sync
+gh attestation verify styles.css -R vuecwiz/obsidian-mqtt-sync
+```
+
 ## 自动化验收
 
 | 命令 | 验收范围 |

@@ -90,6 +90,26 @@ describe("Obsidian settings API compatibility", () => {
     expect(plugin.settings.connections[0]?.allowInsecureRemote).toBe(true);
   });
 
+  it("uses declarative refresh when available and the internal legacy renderer otherwise", () => {
+    const tab = new MQTTSyncSettingTab({} as never, pluginStub() as never) as unknown as {
+      update?: () => void;
+      refreshSettings: () => void;
+      renderLegacySettings: () => void;
+    };
+    const update = vi.fn();
+    const renderLegacySettings = vi.fn();
+    tab.update = update;
+    tab.renderLegacySettings = renderLegacySettings;
+
+    tab.refreshSettings();
+    expect(update).toHaveBeenCalledOnce();
+    expect(renderLegacySettings).not.toHaveBeenCalled();
+
+    tab.update = undefined;
+    tab.refreshSettings();
+    expect(renderLegacySettings).toHaveBeenCalledOnce();
+  });
+
   it("uses Setting headings and window-scoped renderer timers", async () => {
     const [settingsSource, connectionSource, attachmentSource] = await Promise.all([
       readFile(new URL("../../src/settings/tab.ts", import.meta.url), "utf8"),
@@ -99,6 +119,8 @@ describe("Obsidian settings API compatibility", () => {
 
     expect(settingsSource).not.toMatch(/createEl\(["']h[1-6]["']/u);
     expect(settingsSource.match(/\.setHeading\(\)/gu)?.length).toBeGreaterThanOrEqual(5);
+    expect(settingsSource).not.toMatch(/\bthis\.(?:display|update)\(\)/u);
+    expect(settingsSource).toContain("this.renderLegacySettings();");
     expect(connectionSource).not.toMatch(/(?<![.\w])(?:setTimeout|clearTimeout)\(/u);
     expect(attachmentSource).not.toMatch(/(?<![.\w])(?:setTimeout|clearTimeout)\(/u);
   });

@@ -1,5 +1,5 @@
 import { domainToASCII } from "node:url";
-import type { IncomingMessage, MqttQos, SubscriptionConfigV1 } from "../../domain/types";
+import type { IncomingMessage, SubscriptionConfigV1 } from "../../domain/types";
 import { sha256Hex } from "../../shared/crypto";
 import { SyncError } from "../../shared/errors";
 import { topicMatchesFilter } from "./topic";
@@ -201,7 +201,7 @@ export function normalizeMqttMessage(
       ? env.tags.filter((item): item is string => typeof item === "string")
       : [],
     delivery: {
-      qos: qos as MqttQos,
+      qos,
       retain,
       duplicate: Boolean(packet.dup),
       packetId: packet.messageId,

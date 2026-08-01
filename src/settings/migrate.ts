@@ -17,7 +17,7 @@ export function migrateSettings(raw: unknown): PersistedSettingsV1 {
     schemaVersion: 1,
     uiLanguage: data.uiLanguage === "en" || data.uiLanguage === "zh-CN" ? data.uiLanguage : "auto",
     device: { ...defaults.device, ...data.device },
-    connections: data.connections as PersistedSettingsV1["connections"],
+    connections: data.connections,
     rules: data.rules?.schemaVersion === 1 ? data.rules : defaults.rules,
     templates: data.templates?.schemaVersion === 1 ? data.templates : defaults.templates,
     processing: { ...defaults.processing, ...data.processing },

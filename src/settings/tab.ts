@@ -405,13 +405,14 @@ export class MQTTSyncSettingTab extends PluginSettingTab {
         break;
       case "uiLanguage":
         await this.plugin.setUiLanguage(String(value) as UiLanguageSetting);
-        this.update();
+        this.refreshSettings();
         return;
       default:
         throw new Error(`Unknown MQTT Sync setting key: ${key}`);
     }
     await this.plugin.saveSettings(key === "enabled");
-    if (["cleanStart", "resultEnabled", "allowInsecureRemote"].includes(key)) this.update();
+    if (["cleanStart", "resultEnabled", "allowInsecureRemote"].includes(key))
+      this.refreshSettings();
   }
 
   private async apply(): Promise<void> {
@@ -426,6 +427,10 @@ export class MQTTSyncSettingTab extends PluginSettingTab {
   }
 
   override display(): void {
+    this.renderLegacySettings();
+  }
+
+  private renderLegacySettings(): void {
     const { containerEl } = this;
     const i18n = this.plugin.i18n;
     const t: I18n["t"] = (key, variables) => i18n.t(key, variables);
@@ -499,7 +504,7 @@ export class MQTTSyncSettingTab extends PluginSettingTab {
         toggle.setValue(connection.cleanStart).onChange((value) => {
           connection.cleanStart = value;
           if (value) connection.sessionExpirySeconds = 0;
-          this.display();
+          this.refreshSettings();
         }),
       );
     new Setting(containerEl).setName(t("settings.sessionExpiry")).addText((text) => {
@@ -554,7 +559,7 @@ export class MQTTSyncSettingTab extends PluginSettingTab {
           connection.result = value
             ? { topic: "obsidian/results", qos: 1, retain: false, privacy: "minimal" }
             : undefined;
-          this.display();
+          this.refreshSettings();
         }),
       );
     if (connection.result)
@@ -635,7 +640,7 @@ export class MQTTSyncSettingTab extends PluginSettingTab {
           .setValue(this.plugin.settings.uiLanguage)
           .onChange(async (value) => {
             await this.plugin.setUiLanguage(value as UiLanguageSetting);
-            this.display();
+            this.refreshSettings();
           }),
       );
   }
@@ -735,7 +740,7 @@ export class MQTTSyncSettingTab extends PluginSettingTab {
       update.call(this);
       return;
     }
-    this.display();
+    this.renderLegacySettings();
   }
 
   private decorateHeadingWrapper(setting: Setting, className: string): void {

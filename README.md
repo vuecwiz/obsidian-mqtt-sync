@@ -229,6 +229,13 @@ OBSIDIAN_MQTT_TEST_VAULT=/absolute/path/to/vanotes-test npm run install:test-vau
 
 For a manual installation, copy the three installable files into `<Vault>/.obsidian/plugins/mqtt-sync/`, reload Obsidian, and enable **MQTT Sync**. Never use a production Vault as an automated test target.
 
+Official GitHub releases generate build-provenance attestations for all three installable files. After downloading a release asset, verify its repository provenance with GitHub CLI, for example:
+
+```sh
+gh attestation verify main.js -R vuecwiz/obsidian-mqtt-sync
+gh attestation verify styles.css -R vuecwiz/obsidian-mqtt-sync
+```
+
 ## Automated acceptance
 
 | Command | Coverage |
