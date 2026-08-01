@@ -1,0 +1,7 @@
+node_modules
+main.js
+.artifacts
+package-lock.json
+LICENSE
+AGENTS.md
+docs/

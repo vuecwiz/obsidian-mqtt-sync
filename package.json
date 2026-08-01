@@ -1,0 +1,68 @@
+{
+  "name": "obsidian-mqtt-sync",
+  "version": "0.1.0",
+  "description": "Receive MQTT messages and write deterministic, recoverable Vault effects.",
+  "private": true,
+  "main": "main.js",
+  "type": "module",
+  "files": [
+    "main.js",
+    "manifest.json",
+    "styles.css",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "oxlint --deny-warnings src tests scripts",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "vitest run tests/unit --reporter=default --reporter=json --outputFile=.artifacts/unit.json",
+    "test:contract": "vitest run tests/contract --reporter=default --reporter=json --outputFile=.artifacts/contract.json",
+    "test:integration": "vitest run tests/integration --reporter=default --reporter=json --outputFile=.artifacts/integration.json",
+    "test:e2e": "node scripts/e2e.mjs",
+    "test:e2e:public:mosquitto": "node scripts/mosquitto-public-e2e.mjs",
+    "test:e2e:public:mosquitto:self-test": "node scripts/mosquitto-public-runner-self-test.mjs",
+    "test:ui": "npm run build && node scripts/ui-acceptance.mjs",
+    "test:ui:narrow": "MQTT_UI_INITIAL_VIEWPORT_WIDTH=720 MQTT_UI_INITIAL_VIEWPORT_HEIGHT=650 npm run test:ui",
+    "test:ui:resolutions": "npm run build && node scripts/ui-resolution-matrix.mjs",
+    "test:acceptance": "node scripts/acceptance.mjs",
+    "test:coverage": "vitest run --coverage",
+    "test:secrets": "node scripts/secret-scan.mjs",
+    "test:reproducible-build": "node scripts/reproducible-build.mjs",
+    "test:release-package": "node scripts/package-release.mjs",
+    "build": "npm run typecheck && node esbuild.config.mjs production",
+    "package:release": "npm run build && node scripts/package-release.mjs",
+    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test:unit && npm run test:contract && npm run test:integration && npm run test:coverage && npm run test:secrets && npm run build && npm run test:reproducible-build && npm run test:release-package",
+    "install:test-vault": "node scripts/install-test-vault.mjs"
+  },
+  "keywords": [
+    "obsidian",
+    "mqtt",
+    "iot",
+    "sync"
+  ],
+  "author": "van",
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.32",
+    "@vitest/coverage-v8": "4.1.10",
+    "aedes": "0.51.3",
+    "esbuild": "0.28.1",
+    "obsidian": "1.13.1",
+    "oxlint": "1.76.0",
+    "prettier": "3.6.2",
+    "typescript": "5.9.3",
+    "vitest": "4.1.10"
+  },
+  "dependencies": {
+    "mqtt": "5.14.1"
+  },
+  "overrides": {
+    "uuid": "11.1.1"
+  }
+}

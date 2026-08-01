@@ -1,0 +1,12 @@
+node_modules/
+main.js
+*.map
+.artifacts/
+.env
+.env.*
+!.env.example
+data.json
+data.ui-acceptance-backup.json
+state-v1*.json
+.obsidian/
+.DS_Store

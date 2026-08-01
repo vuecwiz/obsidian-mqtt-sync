@@ -1,0 +1,403 @@
+.mqtt-sync-status {
+  align-items: center;
+  border-radius: var(--radius-s);
+  display: inline-flex;
+  justify-content: center;
+  min-width: 1.6rem;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.mqtt-sync-status:hover,
+.mqtt-sync-status:focus-visible {
+  background-color: var(--background-modifier-hover);
+}
+
+.mqtt-sync-status svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.mqtt-sync-status[data-status="off"],
+.mqtt-sync-status[data-status="idle"] {
+  color: var(--text-muted);
+}
+
+.mqtt-sync-status[data-status="monitor_only"] {
+  color: var(--color-yellow);
+}
+
+.mqtt-sync-status[data-status="connecting"],
+.mqtt-sync-status[data-status="polling"] {
+  color: var(--interactive-accent);
+}
+
+.mqtt-sync-status[data-status="connected"] {
+  color: var(--color-green);
+}
+
+.mqtt-sync-status[data-status="backoff"] {
+  color: var(--color-orange);
+}
+
+.mqtt-sync-status[data-status="error"] {
+  color: var(--color-red);
+}
+
+.mqtt-sync-status[data-status="connecting"] svg {
+  animation: mqtt-sync-status-pulse 1.25s ease-in-out infinite;
+}
+
+.mqtt-sync-status[data-status="polling"] svg {
+  animation: mqtt-sync-status-breathe 1.8s ease-in-out infinite;
+}
+
+.tooltip.mqtt-sync-status-tooltip {
+  --mqtt-sync-tooltip-background: color-mix(
+    in srgb,
+    var(--background-secondary) 92%,
+    var(--text-normal) 8%
+  );
+  background-color: var(--mqtt-sync-tooltip-background);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: var(--shadow-s);
+  color: var(--text-normal);
+  line-height: var(--line-height-normal);
+  max-width: min(24rem, calc(100vw - 2rem));
+  min-width: min(20rem, calc(100vw - 2rem));
+  padding: var(--size-4-2) var(--size-4-3);
+  text-align: left;
+  white-space: pre-line;
+}
+
+.mqtt-sync-status-tooltip-title {
+  font-weight: var(--font-semibold);
+}
+
+.mqtt-sync-status-tooltip-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.mqtt-sync-status-tooltip-row {
+  display: grid;
+  gap: var(--size-4-4);
+  grid-template-columns: max-content minmax(0, 1fr);
+}
+
+.mqtt-sync-status-tooltip-label {
+  color: var(--text-muted);
+  text-align: left;
+}
+
+.mqtt-sync-status-tooltip-value {
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.tooltip.mqtt-sync-status-tooltip.mod-top .tooltip-arrow {
+  border-top-color: var(--mqtt-sync-tooltip-background);
+}
+
+.tooltip.mqtt-sync-status-tooltip.mod-bottom .tooltip-arrow {
+  border-bottom-color: var(--mqtt-sync-tooltip-background);
+}
+
+.tooltip.mqtt-sync-status-tooltip.mod-left .tooltip-arrow {
+  border-left-color: var(--mqtt-sync-tooltip-background);
+}
+
+.tooltip.mqtt-sync-status-tooltip.mod-right .tooltip-arrow {
+  border-right-color: var(--mqtt-sync-tooltip-background);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mqtt-sync-status[data-status] svg {
+    animation: none;
+  }
+}
+
+@keyframes mqtt-sync-status-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes mqtt-sync-status-breathe {
+  0%,
+  100% {
+    transform: scale(0.92);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.mqtt-sync-settings .setting-item.is-invalid .setting-item-description {
+  color: var(--text-error);
+}
+
+.mqtt-sync-settings .setting-item.is-invalid input {
+  border-color: var(--text-error);
+}
+
+.mqtt-sync-settings .setting-items.mqtt-sync-primary-heading-items,
+.mqtt-sync-settings .setting-items.mqtt-sync-rules-heading-items {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.mqtt-sync-settings .mqtt-sync-control-14rem .setting-item-control {
+  flex: 0 0 14rem;
+  max-width: 100%;
+  width: min(14rem, 100%);
+}
+
+.mqtt-sync-settings .mqtt-sync-control-14rem input[type="text"] {
+  width: 100%;
+}
+
+.mqtt-sync-rule-modal textarea {
+  min-height: 12rem;
+  width: 100%;
+  font-family: var(--font-monospace);
+}
+
+.mqtt-sync-tls-modal textarea {
+  min-height: 8rem;
+  width: 100%;
+  font-family: var(--font-monospace);
+}
+
+.mqtt-sync-tls-modal {
+  width: min(52rem, calc(100vw - var(--size-4-8)));
+}
+
+.mqtt-sync-tls-modal .modal-content {
+  overflow-x: hidden;
+}
+
+.mqtt-sync-tls-warning {
+  color: var(--text-muted);
+  margin-bottom: var(--size-4-3);
+}
+
+.mqtt-sync-tls-pem-setting {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.mqtt-sync-tls-pem-setting .setting-item-control,
+.mqtt-sync-tls-pem-input {
+  width: 100%;
+}
+
+.mqtt-sync-tls-validation {
+  color: var(--text-error);
+  min-height: var(--line-height-normal);
+  margin-top: var(--size-4-2);
+}
+
+.mqtt-sync-tls-modal-footer .setting-item-control {
+  justify-content: flex-end;
+}
+
+.mqtt-sync-rule-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2-2);
+  margin-inline: 0;
+  padding-inline: 0;
+  width: 100%;
+}
+
+.mqtt-sync-rule-list.setting-group {
+  margin-inline: 0;
+  padding-inline: 0;
+  width: 100%;
+}
+
+.mqtt-sync-rules-heading {
+  margin-inline: 0;
+  width: 100%;
+}
+
+.mqtt-sync-rule-card {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  padding: var(--size-4-3);
+  background: var(--background-secondary);
+}
+
+.mqtt-sync-rule-card .setting-item-info,
+.mqtt-sync-rule-card-heading {
+  min-width: 0;
+}
+
+.mqtt-sync-rule-card-heading {
+  align-items: baseline;
+  display: flex;
+  gap: var(--size-4-2);
+  white-space: nowrap;
+}
+
+.mqtt-sync-rule-card-name {
+  flex: 0 0 auto;
+}
+
+.mqtt-sync-rule-card-note-path {
+  color: var(--text-muted);
+  flex: 1 1 auto;
+  font-size: var(--font-ui-smaller);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mqtt-sync-rule-card.is-disabled {
+  opacity: 0.65;
+}
+
+.mqtt-sync-rule-empty {
+  border: 1px dashed var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  color: var(--text-muted);
+  padding: var(--size-4-4);
+}
+
+.mqtt-sync-rule-modal {
+  width: min(56rem, 94vw);
+  max-height: 90vh;
+}
+
+.mqtt-sync-rule-modal .modal-content {
+  overflow-y: auto;
+}
+
+.mqtt-sync-rule-modal textarea {
+  min-height: 4.5rem;
+}
+
+.mqtt-sync-rule-modal .mqtt-sync-rule-path-setting .setting-item-info {
+  min-width: 0;
+}
+
+.mqtt-sync-rule-modal .mqtt-sync-rule-path-setting .setting-item-control {
+  flex: 0 0 26rem;
+  width: min(26rem, 100%);
+}
+
+.mqtt-sync-rule-modal .mqtt-sync-rule-path-search {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.mqtt-sync-rule-modal .mqtt-sync-rule-path-search .mqtt-sync-rule-path-input {
+  width: 100%;
+}
+
+.mqtt-sync-rule-modal .mqtt-sync-rule-mime-search {
+  flex: 0 1 18rem;
+  width: min(18rem, 100%);
+}
+
+.mqtt-sync-rule-modal .mqtt-sync-rule-mime-search .mqtt-sync-rule-mime-input {
+  width: 100%;
+}
+
+.mqtt-sync-mime-suggestion-container {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.mqtt-sync-mime-suggestion {
+  align-items: baseline;
+  display: grid;
+  gap: var(--size-4-3);
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  padding-inline: var(--size-4-2) 0;
+}
+
+.mqtt-sync-mime-suggestion-label {
+  color: var(--text-normal);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mqtt-sync-mime-suggestion-value {
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  min-width: 0;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mqtt-sync-rule-modal .mqtt-sync-rule-identity .setting-item-control {
+  flex-wrap: nowrap;
+}
+
+.mqtt-sync-rule-modal .mqtt-sync-rule-name-input {
+  flex: 0 1 20rem;
+  min-width: 0;
+  width: min(20rem, 100%);
+}
+
+.mqtt-sync-rule-condition .setting-item-control {
+  flex-wrap: wrap;
+}
+
+.mqtt-sync-rule-condition input,
+.mqtt-sync-rule-modal .setting-item-control > input,
+.mqtt-sync-rule-modal .setting-item-control > textarea {
+  min-width: 12rem;
+}
+
+.mqtt-sync-rule-validation {
+  min-height: var(--line-height-normal);
+  color: var(--text-error);
+  margin: var(--size-4-2) 0;
+}
+
+.mqtt-sync-rule-modal-footer .setting-item-control {
+  gap: var(--size-4-2);
+}
+
+@media (max-width: 700px) {
+  .mqtt-sync-rule-card,
+  .mqtt-sync-rule-modal .setting-item {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mqtt-sync-rule-card .setting-item-control,
+  .mqtt-sync-rule-modal .setting-item-control {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .mqtt-sync-rule-modal .mqtt-sync-rule-path-setting .setting-item-control {
+    flex: 0 1 auto;
+  }
+
+  .mqtt-sync-rule-modal .mqtt-sync-rule-conditions-heading {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .mqtt-sync-rule-modal .mqtt-sync-rule-conditions-heading .setting-item-control {
+    justify-content: flex-end;
+    width: auto;
+  }
+}

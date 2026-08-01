@@ -1,0 +1,15 @@
+{
+  "printWidth": 100,
+  "semi": true,
+  "singleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": ["README.md", "README_CN.md"],
+      "options": {
+        "proseWrap": "never"
+      }
+    }
+  ]
+}
