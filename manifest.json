@@ -1,7 +1,7 @@
 {
   "id": "mqtt-sync",
   "name": "MQTT Sync",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minAppVersion": "1.12.7",
   "description": "Receive MQTT messages and route them into deterministic, recoverable Markdown notes.",
   "author": "van",

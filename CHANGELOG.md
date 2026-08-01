@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.1 - 2026-08-01
+
 - Addressed the first Obsidian community review source findings: settings refresh now uses the Obsidian 1.13 declarative update path without directly calling APIs newer than the 1.12.7 minimum, the imperative fallback no longer calls deprecated `display()`, unnecessary migration/normalizer assertions were removed, and GitHub releases now attest the three supported plugin assets.
 
 ## 0.1.0 - 2026-07-31
